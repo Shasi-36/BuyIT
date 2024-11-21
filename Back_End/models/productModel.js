@@ -6,12 +6,11 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    image:[
+    image:
         {
-           type: String,
-           required:true
-        }
-    ],
+           type: Array,
+           default:[]
+        },
     categoryId:[
         {
             type: mongoose.Schema.ObjectId,
@@ -26,6 +25,7 @@ const productSchema = new mongoose.Schema({
     ],
     unit:{
         type: String,
+        default:null
     },
     stock:{
         type: Number,
@@ -37,21 +37,23 @@ const productSchema = new mongoose.Schema({
     },
     discount:{
         type: Number,
-        default:null
+        default:null 
     },
     description:{
         type:String,
+        default:""
     },
     more_details:{
-        
+        type:Object,
+        default:{}
     },
     publish:{
         type:boolean,
-        default:false
+        default:true
     }
 },
 {
-    timestamp: true
+    timestamps: true
 }
 )
 

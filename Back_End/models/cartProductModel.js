@@ -2,19 +2,18 @@ import mongoose from "mongoose";
 
 const cartProductSchema = new mongoose.Schema({
     productId:{
-        type:String,
-        required:true
+        type:mongoose.Schema.ObjectId,
+        ref:"product"
     },
     quantity:{
         type:Number,
         default:null
     },
     userId:{
-        type:String,
-        required:true
-    }
-},{
-    timestamp: true
+        type:mongoose.Schema.ObjectId,
+        ref:"user"
+},
+    timestamps: true
 }
 )
 

@@ -19,9 +19,13 @@ const addressSchema = new mongoose.Schema({
     mobile:{
         type:Number,
         default:null
+    },
+    status:{
+        type:Boolean,
+        default:true
     }
 },{
-    timestamp: true
+    timestamps: true
 })
 
 const addressModel= mongoose.model("address", addressSchema)

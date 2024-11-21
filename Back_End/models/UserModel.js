@@ -75,7 +75,7 @@ const userSchema= new mongoose.schema({
     }
 },
    { 
-    timestamp:true
+    timestamps:true
    }
 )
 

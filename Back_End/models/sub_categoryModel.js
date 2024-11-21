@@ -3,10 +3,11 @@ import mongoose from "mongoose";
 const sub_categorySchema = new mongoose.Schema({
     name:{
         type:String,
-        required: true
+        default:""
     },
     image:{
-        type:String
+        type:String,
+        default:""
     },
     categoryId:[
         {
@@ -17,7 +18,7 @@ const sub_categorySchema = new mongoose.Schema({
 
 },
 {
-    timestamp: true
+    timestamps: true
 }
 )
 
