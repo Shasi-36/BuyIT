@@ -13,6 +13,7 @@ const sendEmail = async({sendto,subject,html})=>{
     try {
         const { data, error } = await resend.emails.send({
             from: 'BuyIT <onboarding@resend.dev>',
+            // from: 'BuyIT <y.shashi114@gmail.com>',
             to: sendto,
             subject: subject,
             html: html,
