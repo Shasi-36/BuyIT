@@ -5,6 +5,7 @@ import sendEmail from "../Config/sendEmail.js"
 import verifyEmailTemplate from "../utils/verifyEmailTemplate.js"
 import generatedAccessToken from "../utils/accessToken.js"
 import genertedRefreshToken from "../utils/refreshToken.js"
+import uploadImageClodinary from "../utils/uploadImageCloudinary.js"
 
 
 
@@ -204,6 +205,70 @@ export async function logoutController(req,res) {
             message:error.message || error,
             error:true,
             success:false
+        })
+    }
+}
+
+/****************** UPLOAD AVATAR***************/
+
+export async function uploadAvatar(req,res) {
+    try {
+        const userId=req.userId // from auth middleware
+        const image =req.file // from multer middleware
+        const upload = await uploadImageClodinary(image)
+
+            const updateUser = await userModel.findByIdAndUpdate(userId,{
+                avatar:upload.url
+            })
+        return res.json({
+            message:"upload file successfully",
+            data:
+                {
+                    _id: userId,
+                    avatar:upload.url
+                }
+            
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message || error,
+            error:true,
+            success:false
+        })
+    }
+}
+
+/****************** UPDATE USER DETAILS***************/
+
+export async function UpdateUserDetails(req,res) {
+    try {
+        const userId = req.userId // from auth middleware
+        const{name,email,mobile,password}= req.body
+
+        let hashPassword=""
+
+        if(password){
+            const salt = await bcryptjs.genSalt(10)
+            const hashPassword = await bcryptjs.hash(password,salt)
+        }
+        const updateUserDetails = await userModel.updateOne({_id:userId},{
+            ...(name && {name:name}),
+            ...(email && {email:email}),
+            ...(mobile && {mobile:mobile}),
+            ...(password && {password:hashpassword})
+        })
+
+        return res.status(201).json({
+            message: "User Details Updated Successfully",
+            error:false,
+            success:true,
+            data:updateUserDetails
+        })
+    } catch (error) {
+        return res.status(500).json({
+             message:error.message || error,
+             error:true,
+             success:false
         })
     }
 }
